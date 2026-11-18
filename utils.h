@@ -2,6 +2,8 @@
  * utils.h
  * Funcoes auxiliares de entrada de dados COM validacao.
  */
+/* Include guard: impede que este arquivo seja lido duas vezes pelo compilador. */
+
 #ifndef UTILS_H
 #define UTILS_H
 
