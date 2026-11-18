@@ -42,7 +42,6 @@ Cada módulo tem um `.c` (implementação) e um `.h` (declarações). A `main()`
 ├── registro_atendimento.c / .h # MÓDULO 3 - fila, chamada e finalização
 ├── painel_chamada.c / .h       # MÓDULO 4 - menu e painel
 ├── test_sistema.c              # testes automáticos
-├── Makefile
 └── README.md
 ```
 
