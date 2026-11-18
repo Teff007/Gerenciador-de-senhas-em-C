@@ -2,6 +2,7 @@
  * registro_atendimento.h
  * MODULO 3 - Registro de atendimento (fila, chamada e finalizacao).
  */
+/* Include guard: impede que este arquivo seja lido duas vezes pelo compilador. */
 #ifndef REGISTRO_ATENDIMENTO_H
 #define REGISTRO_ATENDIMENTO_H
 
