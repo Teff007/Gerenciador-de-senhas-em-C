@@ -2,6 +2,8 @@
  * registro_senha.h
  * MODULO 1 - Registro de senha (coleta dos dados e emissao da senha).
  */
+/* Include guard: impede que este arquivo seja lido duas vezes pelo compilador. */
+
 #ifndef REGISTRO_SENHA_H
 #define REGISTRO_SENHA_H
 
