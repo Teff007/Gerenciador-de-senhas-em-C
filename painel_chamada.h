@@ -2,6 +2,8 @@
  * painel_chamada.h
  * MODULO 4 - Painel de chamada e menu principal.
  */
+/* Include guard: impede que este arquivo seja lido duas vezes pelo compilador. */
+
 #ifndef PAINEL_CHAMADA_H
 #define PAINEL_CHAMADA_H
 
