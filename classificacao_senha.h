@@ -2,6 +2,7 @@
  * classificacao_senha.h
  * MODULO 2 - Classificacao de senha (Normal, Preferencial, Urgente).
  */
+/* Include guard: impede que este arquivo seja lido duas vezes pelo compilador. */
 #ifndef CLASSIFICACAO_SENHA_H
 #define CLASSIFICACAO_SENHA_H
 
