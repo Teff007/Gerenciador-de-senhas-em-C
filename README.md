@@ -56,13 +56,23 @@ Cada módulo tem um `.c` (implementação) e um `.h` (declarações). A `main()`
 | `<stdbool.h>` | tipo `bool` |
 | `<assert.h>` | testes automáticos |
 
+| Biblioteca | Para que serve |
+|---|---|
+| `<stdio.h>` | Entrada e saída. `printf` mostra texto na tela, `fgets` lê o que o usuário digita e `snprintf` monta um texto (como `P001`) dentro de uma variável. |
+| `<stdlib.h>` | Funções gerais. `strtol` converte texto em número, para validar a idade e as opções do menu, e `exit` encerra o programa. |
+| `<string.h>` | Manipulação de texto. `strlen` mede o tamanho de um texto e `strcmp` compara dois textos, usada para achar uma senha pelo código. |
+| `<ctype.h>` | Classificação de caracteres. `toupper` transforma a letra em maiúscula, para aceitar `s` ou `S`, `f` ou `F`, `p001` ou `P001`. |
+| `<stdbool.h>` | Cria o tipo `bool`, com os valores `true` e `false`, usado nos campos sim/não e nas funções que respondem verdadeiro ou falso. |
+| `<assert.h>` | Testes automáticos. `assert` para o programa se a condição testada for falsa. |
+
+
 ### Estruturas de dados
 
-- `struct Paciente`: dados informados pelo atendente
-- `struct Senha`: código, categoria e status
-- `enum Categoria`: `NORMAL`, `PREFERENCIAL`, `URGENTE`
-- `enum StatusSenha`: `AGUARDANDO`, `EM_ATENDIMENTO`, `FINALIZADA`
-- A fila é um **vetor (array)** de `Senha` com até 100 posições
+- `struct Paciente`: dados informados pelo atendente  
+- `struct Senha`: código, categoria e status  (Representa uma senha emitida)
+- `enum Categoria`: `NORMAL`, `PREFERENCIAL`, `URGENTE` 
+- `enum StatusSenha`: `AGUARDANDO`, `EM_ATENDIMENTO`, `FINALIZADA`  ( Indica em que ponto do atendimento a senha está) 
+- A fila é um **vetor (array)** de `Senha` com até 100 posições.
 
 ## Compilação e execução
 
@@ -86,7 +96,9 @@ Os testes verificam a classificação (incluindo os limites 59/60, 64/65 e 80/81
 
 ## Funções implementadas
 
-### utils
+### utils 
+Lê os dados do teclado com validação (número dentro da faixa, S/N, F/M), sem travar com entradas erradas.
+
 | Função | O que faz |
 |---|---|
 | `void lerLinha(char*, int)` | lê uma linha com `fgets` e remove o Enter |
@@ -95,6 +107,9 @@ Os testes verificam a classificação (incluindo os limites 59/60, 64/65 e 80/81
 | `char lerGenero(void)` | repete até receber F ou M |
 
 ### registro_senha (módulo 1)
+Faz as perguntas ao atendente (gênero, idade, gestante, lactante, necessidade especial e obesidade), 
+valida as respostas e emite a senha do paciente.
+
 | Função | O que faz |
 |---|---|
 | `Paciente coletarDadosPaciente(void)` | pergunta os dados ao atendente |
@@ -102,6 +117,9 @@ Os testes verificam a classificação (incluindo os limites 59/60, 64/65 e 80/81
 | `void registrarSenha(void)` | fluxo completo: coleta, emite e coloca na fila |
 
 ### classificacao_senha (módulo 2)
+Decide se o paciente é Normal, Preferencial ou Urgente seguindo as regras do sistema e gera o código
+sequencial da senha (N001, P001, U001).
+
 | Função | O que faz |
 |---|---|
 | `bool temCondicaoPrioritaria(Paciente)` | verifica as condições de preferencial |
@@ -112,6 +130,9 @@ Os testes verificam a classificação (incluindo os limites 59/60, 64/65 e 80/81
 | `void reiniciarContadores(void)` | zera os contadores (testes) |
 
 ### registro_atendimento (módulo 3)
+Controla a fila: consulta a próxima senha, registra a chamada, identifica a senha do paciente e a que
+está em atendimento, finaliza o atendimento e atualiza a fila.
+
 | Função | O que faz |
 |---|---|
 | `bool adicionarNaFila(Senha)` | coloca a senha no fim da fila |
@@ -126,6 +147,9 @@ Os testes verificam a classificação (incluindo os limites 59/60, 64/65 e 80/81
 | `const Senha* obterSenha(int)` | acesso somente leitura a uma senha |
 
 ### painel_chamada (módulo 4)
+Mostra o menu e o painel de chamada e liga cada opção escolhida à função certa. É o módulo que
+controla a execução do programa.
+
 | Função | O que faz |
 |---|---|
 | `void exibirMenu(void)` | mostra as opções |
@@ -166,12 +190,13 @@ Após registrar `P001`, `N001`, `U001` e outra `P002`, a opção 8 (painel) most
 ## Boas práticas adotadas
 
 - Nenhuma lógica de negócio na `main()`
-- Um `.c` e um `.h` por módulo, com *include guards*
+- Um `.c` e um `.h` por módulo, com *include guards* (`proteção contra inclusão repetida`)
+  *Como funciona : o #ifndef pergunta se o nome TIPOS_H ainda não foi criado. Na primeira vez, o #define cria o nome e o conteúdo é lido. Nas próximas vezes o nome já existe, então o compilador pula tudo até o #endif.*
 - Funções com responsabilidade única e comentadas
 - Validação de todas as entradas (sem travar com letras ou valores fora da faixa)
-- Constantes nomeadas (`MAX_FILA`, `TAM_CODIGO`) em vez de números soltos
+- Constantes nomeadas (`MAX_FILA` (Tamanho do texto da senha), `TAM_CODIGO` (Quantidade máxima de senhas na fila.)) em vez de números soltos
 - Compilação sem avisos com `-Wall -Wextra`
 
 ## Autor
 
-Projeto desenvolvido por _[seu nome]_, trainee na Tia Karla Soluções.
+Projeto desenvolvido por Stéffany Rodrigues, trainee na Tia Karla Soluções.
