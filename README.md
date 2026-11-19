@@ -94,6 +94,10 @@ gcc -Wall -Wextra -std=c99 -o test_sistema test_sistema.c classificacao_senha.c 
 
 Os testes verificam a classificação (incluindo os limites 59/60, 64/65 e 80/81 anos), a geração dos códigos e o fluxo da fila (ordem de chamada, finalização e atualização).
 
+## Arquivo .gitignore
+
+O `.gitignore` diz ao Git quais arquivos **não devem ser enviados** ao GitHub. Neste projeto ele ignora os arquivos gerados na compilação (`*.o`, `senhas.exe` e `test_sistema.exe`), para que o repositório guarde apenas o código-fonte, que é o que foi escrito.
+
 ## Funções implementadas
 
 ### utils 
