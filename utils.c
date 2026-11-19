@@ -2,10 +2,10 @@
  * utils.c
  * Funcoes auxiliares de entrada de dados COM validacao.
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include <stdio.h>    /* printf, fgets, getchar */
+#include <stdlib.h>   /* atoi (texto -> numero) e exit */
+#include <string.h>   /* strlen (tamanho do texto) */
+#include <ctype.h>    /* toupper (letra maiuscula) e isdigit (e um digito?) */
 #include "utils.h"
 
 void lerLinha(char *destino, int tamanho)
@@ -26,20 +26,39 @@ void lerLinha(char *destino, int tamanho)
     }
 }
 
+/* Funcao auxiliar (so usada aqui): true se o texto tem de 1 a 9 caracteres
+ * e todos sao digitos (0 a 9). O limite de 9 evita numero grande demais. */
+static bool soTemDigitos(const char *texto)
+{
+    int tamanho = (int)strlen(texto);
+
+    if (tamanho == 0 || tamanho > 9) {
+        return false;
+    }
+
+    for (int i = 0; i < tamanho; i++) {
+        if (!isdigit((unsigned char)texto[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
 int lerInteiro(const char *mensagem, int min, int max)
 {
     char buffer[32];
-    char *fim;
+    int valor;
 
     while (true) {
         printf("%s", mensagem);
         lerLinha(buffer, sizeof(buffer));
 
-        long valor = strtol(buffer, &fim, 10);
-
-        /* valido se digitou algo, so tinha numero e esta na faixa */
-        if (buffer[0] != '\0' && *fim == '\0' && valor >= min && valor <= max) {
-            return (int)valor;
+        /* so converte para numero se o texto for composto apenas de digitos */
+        if (soTemDigitos(buffer)) {
+            valor = atoi(buffer);
+            if (valor >= min && valor <= max) {
+                return valor;
+            }
         }
         printf("Valor invalido! Digite um numero entre %d e %d.\n", min, max);
     }
