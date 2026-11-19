@@ -2,14 +2,14 @@
  * painel_chamada.c
  * MODULO 4 - Painel de chamada e menu principal.
  */
-#include <stdio.h>
+#include <stdio.h>   /* printf */
 #include "painel_chamada.h"
 #include "registro_senha.h"
 #include "registro_atendimento.h"
 #include "classificacao_senha.h"
 #include "utils.h"
 
-/* Funcao auxiliar (so usada aqui): texto da situacao da senha */
+/* Funcao auxiliar (so  e usada aqui): texto da situacao da senha */
 static const char *textoStatus(StatusSenha status)
 {
     switch (status) {
@@ -51,14 +51,14 @@ void exibirPainel(void)
 
     if (atual != -1) {
         printf(" EM ATENDIMENTO : %s (%s)\n",
-               obterSenha(atual)->codigo, nomeCategoria(obterSenha(atual)->categoria));
+               obterSenha(atual).codigo, nomeCategoria(obterSenha(atual).categoria));
     } else {
         printf(" EM ATENDIMENTO : nenhuma\n");
     }
 
     if (proxima != -1) {
         printf(" PROXIMA SENHA  : %s (%s)\n",
-               obterSenha(proxima)->codigo, nomeCategoria(obterSenha(proxima)->categoria));
+               obterSenha(proxima).codigo, nomeCategoria(obterSenha(proxima).categoria));
     } else {
         printf(" PROXIMA SENHA  : nenhuma\n");
     }
@@ -78,8 +78,8 @@ void listarFila(void)
     }
 
     for (int i = 0; i < totalNaFila(); i++) {
-        const Senha *s = obterSenha(i);
-        printf("%s | %-12s | %s\n", s->codigo, nomeCategoria(s->categoria), textoStatus(s->status));
+        Senha s = obterSenha(i);
+        printf("%s | %-12s | %s\n", s.codigo, nomeCategoria(s.categoria), textoStatus(s.status));
     }
 }
 
@@ -96,11 +96,11 @@ void identificarSenhaPaciente(void)
         return;
     }
 
-    const Senha *s = obterSenha(indice);
+    Senha s = obterSenha(indice);
     printf("Senha %s | Categoria: %s | Situacao: %s\n",
-           s->codigo, nomeCategoria(s->categoria), textoStatus(s->status));
+           s.codigo, nomeCategoria(s.categoria), textoStatus(s.status));
 
-    if (s->status == AGUARDANDO) {
+    if (s.status == AGUARDANDO) {
         printf("Posicao na ordem de chamada: %d\n", posicaoNaFila(indice));
     }
 }
@@ -120,8 +120,8 @@ void executarOpcao(int opcao)
                 printf("\nNao ha senhas aguardando.\n");
             } else {
                 printf("\nProxima senha: %s (%s)\n",
-                       obterSenha(indice)->codigo,
-                       nomeCategoria(obterSenha(indice)->categoria));
+                       obterSenha(indice).codigo,
+                       nomeCategoria(obterSenha(indice).categoria));
             }
             break;
 
@@ -129,8 +129,8 @@ void executarOpcao(int opcao)
             if (chamarPaciente()) {
                 indice = indiceEmAtendimento();
                 printf("\nCHAMANDO SENHA %s (%s)!\n",
-                       obterSenha(indice)->codigo,
-                       nomeCategoria(obterSenha(indice)->categoria));
+                       obterSenha(indice).codigo,
+                       nomeCategoria(obterSenha(indice).categoria));
             } else if (indiceEmAtendimento() != -1) {
                 printf("\nJa existe um atendimento em andamento. Finalize-o primeiro.\n");
             } else {
@@ -148,8 +148,8 @@ void executarOpcao(int opcao)
                 printf("\nNenhum paciente em atendimento.\n");
             } else {
                 printf("\nSenha em atendimento: %s (%s)\n",
-                       obterSenha(indice)->codigo,
-                       nomeCategoria(obterSenha(indice)->categoria));
+                       obterSenha(indice).codigo,
+                       nomeCategoria(obterSenha(indice).categoria));
             }
             break;
 
