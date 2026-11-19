@@ -50,18 +50,18 @@ Cada módulo tem um `.c` (implementação) e um `.h` (declarações). A `main()`
 | Biblioteca | Para quê |
 |---|---|
 | `<stdio.h>` | `printf`, `fgets`, `snprintf` |
-| `<stdlib.h>` | `strtol`, `exit` |
+| `<stdlib.h>` | `atoi`, `exit` |
 | `<string.h>` | `strlen`, `strcmp` |
-| `<ctype.h>` | `toupper` |
+| `<ctype.h>` | `toupper`, `isdigit` |
 | `<stdbool.h>` | tipo `bool` |
 | `<assert.h>` | testes automáticos |
 
 | Biblioteca | Para que serve |
 |---|---|
 | `<stdio.h>` | Entrada e saída. `printf` mostra texto na tela, `fgets` lê o que o usuário digita e `snprintf` monta um texto (como `P001`) dentro de uma variável. |
-| `<stdlib.h>` | Funções gerais. `strtol` converte texto em número, para validar a idade e as opções do menu, e `exit` encerra o programa. |
+| `<stdlib.h>` | Funções gerais. `atoi` converte texto em número, para validar a idade e as opções do menu, e `exit` encerra o programa. |
 | `<string.h>` | Manipulação de texto. `strlen` mede o tamanho de um texto e `strcmp` compara dois textos, usada para achar uma senha pelo código. |
-| `<ctype.h>` | Classificação de caracteres. `toupper` transforma a letra em maiúscula, para aceitar `s` ou `S`, `f` ou `F`, `p001` ou `P001`. |
+| `<ctype.h>` | Classificação de caracteres. `toupper` transforma a letra em maiúscula, para aceitar `s` ou `S`, `f` ou `F`, `p001` ou `P001`, e `isdigit` verifica se um caractere é um dígito, para validar números. |
 | `<stdbool.h>` | Cria o tipo `bool`, com os valores `true` e `false`, usado nos campos sim/não e nas funções que respondem verdadeiro ou falso. |
 | `<assert.h>` | Testes automáticos. `assert` para o programa se a condição testada for falsa. |
 
@@ -148,7 +148,7 @@ está em atendimento, finaliza o atendimento e atualiza a fila.
 | `void atualizarFila(void)` | remove da fila as senhas finalizadas |
 | `int totalAguardando / totalNaFila / totalAtendidos` | contadores |
 | `int posicaoNaFila(int)` | posição na ordem de chamada |
-| `const Senha* obterSenha(int)` | acesso somente leitura a uma senha |
+| `Senha obterSenha(int)` | devolve uma cópia da senha na posição indicada |
 
 ### painel_chamada (módulo 4)
 Mostra o menu e o painel de chamada e liga cada opção escolhida à função certa. É o módulo que
