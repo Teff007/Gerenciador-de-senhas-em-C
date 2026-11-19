@@ -198,7 +198,7 @@ Após registrar `P001`, `N001`, `U001` e outra `P002`, a opção 8 (painel) most
   *Como funciona : o #ifndef pergunta se o nome TIPOS_H ainda não foi criado. Na primeira vez, o #define cria o nome e o conteúdo é lido. Nas próximas vezes o nome já existe, então o compilador pula tudo até o #endif.*
 - Funções com responsabilidade única e comentadas
 - Validação de todas as entradas (sem travar com letras ou valores fora da faixa)
-- Constantes nomeadas (`MAX_FILA` (Tamanho do texto da senha), `TAM_CODIGO` (Quantidade máxima de senhas na fila.)) em vez de números soltos
+- Constantes nomeadas (`MAX_FILA` (Quantidade máxima de senhas na fila), `TAM_CODIGO` (Tamanho do texto da senha)) em vez de números soltos
 - Compilação sem avisos com `-Wall -Wextra`
 
 ## Autor
