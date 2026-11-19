@@ -2,11 +2,13 @@
  * registro_atendimento.c
  * MODULO 3 - Registro de atendimento (fila, chamada e finalizacao).
  */
-#include <string.h>
-#include <ctype.h>
+#include <string.h>   /* strcmp (comparar codigos de senha) */
+#include <ctype.h>    /* toupper (aceitar "p001" e "P001") */
 #include "registro_atendimento.h"
 
-/* A fila e um vetor (array) de senhas */
+/* ESTRUTURA DE ARMAZENAMENTO: a fila e um vetor (array) de senhas.
+ * "static" faz essas variaveis existirem somente neste arquivo: os outros
+ * modulos nao mexem nelas diretamente e usam as funcoes do .h. */
 static Senha fila[MAX_FILA];
 static int total = 0;      /* quantas senhas existem no vetor */
 static int atendidos = 0;  /* quantos atendimentos foram concluidos */
@@ -145,12 +147,15 @@ int posicaoNaFila(int indice)
     return posicao;
 }
 
-const Senha *obterSenha(int indice)
+Senha obterSenha(int indice)
 {
+    /* Senha "vazia", devolvida se o indice for invalido */
+    Senha vazia = {"", NORMAL, FINALIZADA};
+
     if (indice < 0 || indice >= total) {
-        return NULL;
+        return vazia;
     }
-    return &fila[indice];
+    return fila[indice];    /* devolve uma copia da senha */
 }
 
 void reiniciarFila(void)
