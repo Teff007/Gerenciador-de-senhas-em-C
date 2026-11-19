@@ -3,9 +3,9 @@
  * Testes automaticos dos modulos de classificacao e de atendimento.
  * Se algum assert falhar, o programa para e mostra a linha do erro.
  */
-#include <stdio.h>
-#include <string.h>
-#include <assert.h>
+#include <stdio.h>    /* printf */
+#include <string.h>   /* strcmp */
+#include <assert.h>   /* assert: para o programa se uma condicao for falsa */
 #include "classificacao_senha.h"
 #include "registro_atendimento.h"
 
@@ -78,13 +78,13 @@ static void testarFila(void)
     adicionarNaFila(criarSenha(PREFERENCIAL));  /* P002 */
 
     /* Ordem esperada: U001, P001, P002, N001 */
-    assert(strcmp(obterSenha(consultarProximaSenha())->codigo, "U001") == 0);
+    assert(strcmp(obterSenha(consultarProximaSenha()).codigo, "U001") == 0);
     assert(posicaoNaFila(buscarSenha("N001")) == 4);
     assert(buscarSenha("p002") != -1);          /* aceita minuscula */
     assert(buscarSenha("X999") == -1);
 
     assert(chamarPaciente());
-    assert(strcmp(obterSenha(indiceEmAtendimento())->codigo, "U001") == 0);
+    assert(strcmp(obterSenha(indiceEmAtendimento()).codigo, "U001") == 0);
     assert(!chamarPaciente());                  /* ja ha atendimento */
 
     assert(finalizarAtendimento());
@@ -94,7 +94,7 @@ static void testarFila(void)
     assert(!finalizarAtendimento());            /* nao ha atendimento */
 
     assert(chamarPaciente());
-    assert(strcmp(obterSenha(indiceEmAtendimento())->codigo, "P001") == 0);
+    assert(strcmp(obterSenha(indiceEmAtendimento()).codigo, "P001") == 0);
 
     printf("[OK] fila e atendimento\n");
 }
