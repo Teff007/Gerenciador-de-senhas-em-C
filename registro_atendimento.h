@@ -2,11 +2,12 @@
  * registro_atendimento.h
  * MODULO 3 - Registro de atendimento (fila, chamada e finalizacao).
  */
+
 /* Include guard: impede que este arquivo seja lido duas vezes pelo compilador. */
 #ifndef REGISTRO_ATENDIMENTO_H
 #define REGISTRO_ATENDIMENTO_H
 
-#include "tipos.h"
+#include "tipos.h"   /* Senha, StatusSenha, MAX_FILA */
 
 /* Coloca uma senha no fim da fila. Devolve false se a fila estiver cheia. */
 bool adicionarNaFila(Senha senha);
@@ -43,10 +44,11 @@ int totalAtendidos(void);
 /* Posicao do paciente na ordem de chamada (1 = sera o proximo). 0 se nao esta aguardando. */
 int posicaoNaFila(int indice);
 
-/* Acesso somente leitura a uma senha da fila (NULL se indice invalido). */
-const Senha *obterSenha(int indice);
+/* Devolve uma copia da senha que esta na posicao indice da fila.
+ * Se o indice for invalido, devolve uma senha vazia (codigo ""). */
+Senha obterSenha(int indice);
 
 /* Esvazia a fila e zera os contadores (usado nos testes). */
 void reiniciarFila(void);
 
-#endif
+#endif /* REGISTRO_ATENDIMENTO_H */
